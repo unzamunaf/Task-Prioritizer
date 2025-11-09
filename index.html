@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Kawaii Task Manager | Blockchain To-Do dApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Animated Background -->
+    <div class="kawaii-background">
+        <div class="floating-emoji">📝</div>
+        <div class="floating-emoji">✅</div>
+        <div class="floating-emoji">⭐</div>
+        <div class="floating-emoji">🎀</div>
+        <div class="floating-emoji">💖</div>
+        <div class="floating-emoji">🔔</div>
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="kawaii-container">
+        <!-- Header -->
+        <header class="cute-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-emoji">🌸</div>
+                    <div class="logo-text">
+                        <h1>Kawaii Task Manager</h1>
+                        <p>Your adorable blockchain to-do list! 🎀</p>
+                    </div>
+                </div>
+                <div class="wallet-section">
+                    <button id="connectWallet" class="cute-wallet-btn">
+                        <span class="btn-emoji">👛</span>
+                        <span class="btn-text">Connect Wallet</span>
+                        <div class="sparkle"></div>
+                    </button>
+                    <div id="walletStatus" class="wallet-status">
+                        <span class="status-emoji">🔴</span>
+                        <span class="status-text">Not Connected</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Network Status -->
+        <div id="networkStatus" class="network-status hidden">
+            <span class="network-emoji">🌐</span>
+            <span class="network-text">Please switch to Sepolia Testnet</span>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="cute-stats">
+            <div class="stat-card pastel-pink">
+                <div class="stat-emoji">📋</div>
+                <div class="stat-content">
+                    <h3 id="totalTasks">0</h3>
+                    <p>Total Tasks</p>
+                </div>
+                <div class="stat-decoration">✨</div>
+            </div>
+            <div class="stat-card pastel-orange">
+                <div class="stat-emoji">🔥</div>
+                <div class="stat-content">
+                    <h3 id="highPriorityTasks">0</h3>
+                    <p>High Priority</p>
+                </div>
+                <div class="stat-decoration">⭐</div>
+            </div>
+            <div class="stat-card pastel-green">
+                <div class="stat-emoji">✅</div>
+                <div class="stat-content">
+                    <h3 id="completedTasks">0</h3>
+                    <p>Completed</p>
+                </div>
+                <div class="stat-decoration">🎉</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="input-section cute-card">
+                <div class="card-header">
+                    <span class="header-emoji">➕</span>
+                    <h2>Add New Task</h2>
+                    <div class="header-decoration">🎨</div>
+                </div>
+                
+                <div class="input-group">
+                    <div class="cute-input-container">
+                        <input type="text" id="taskInput" placeholder="What needs to be done today? 🎯">
+                        <span class="input-emoji">✏️</span>
+                    </div>
+                    
+                    <div class="priority-section">
+                        <label>🎯 Priority Level:</label>
+                        <div class="priority-buttons">
+                            <button class="priority-btn cute-low" data-priority="0">
+                                <span class="priority-emoji">🐢</span>
+                                Low
+                                <div class="btn-sparkle"></div>
+                            </button>
+                            <button class="priority-btn cute-medium" data-priority="1">
+                                <span class="priority-emoji">🚶‍♀️</span>
+                                Medium
+                                <div class="btn-sparkle"></div>
+                            </button>
+                            <button class="priority-btn cute-high" data-priority="2">
+                                <span class="priority-emoji">🚀</span>
+                                High
+                                <div class="btn-sparkle"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="addTaskBtn" class="cute-add-btn">
+                        <span class="btn-emoji">🌟</span>
+                        <span class="btn-text">Add to Blockchain</span>
+                        <div class="sparkle-container">
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                            <div class="sparkle"></div>
+                        </div>
+                    </button>
+                </div>
+
+                <div id="selectedPriority" class="priority-display">
+                    <span class="display-emoji">🏷️</span>
+                    <span class="display-text">No priority selected</span>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="tasks-section cute-card">
+                <div class="card-header">
+                    <span class="header-emoji">📝</span>
+                    <h2>Your Tasks</h2>
+                    <div class="task-count-badge">
+                        <span id="taskCount">0</span> 📋
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">
+                            <span class="filter-emoji">🌈</span>
+                            All Tasks
+                        </button>
+                        <button class="filter-btn" data-filter="high">
+                            <span class="filter-emoji">🚀</span>
+                            High
+                        </button>
+                        <button class="filter-btn" data-filter="medium">
+                            <span class="filter-emoji">🚶‍♀️</span>
+                            Medium
+                        </button>
+                        <button class="filter-btn" data-filter="low">
+                            <span class="filter-emoji">🐢</span>
+                            Low
+                        </button>
+                        <button class="filter-btn" data-filter="active">
+                            <span class="filter-emoji">⏰</span>
+                            Active
+                        </button>
+                        <button class="filter-btn" data-filter="completed">
+                            <span class="filter-emoji">✅</span>
+                            Done
+                        </button>
+                    </div>
+                </div>
+
+                <div id="tasksList" class="tasks-list">
+                    <div class="empty-state">
+                        <div class="empty-emoji">📝</div>
+                        <h3>No tasks yet! 🌸</h3>
+                        <p>Add your first task to start your adorable journey! 🎀</p>
+                        <div class="empty-decoration">✨💫🌟</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="cute-status-message"></div>
+
+        <!-- Footer -->
+        <footer class="cute-footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="contract-info">
+                        <span class="info-emoji">📄</span>
+                        <span>Contract: 0xd914...39138</span>
+                    </div>
+                    <div class="network-info">
+                        <span class="info-emoji">🌐</span>
+                        <span id="currentNetwork">Sepolia Testnet</span>
+                    </div>
+                </div>
+                <div class="footer-decoration">
+                    <span>Made with 💖 and 🌈</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="kawaii-loading">
+        <div class="loading-content">
+            <div class="loading-emoji">⏳</div>
+            <div class="loading-spinner"></div>
+            <p id="loadingText">Processing on blockchain... ✨</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confettiContainer"></div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" type="application/javascript"></script>
+    <script src="app.js"></script>
+</body>
+</html>
